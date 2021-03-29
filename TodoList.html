@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB - CSS</title>
+  <meta charset="utf-8">
+    <script src="Edit.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script>
+    function click_Btn(self, BtnName){
+      if (self.value != 'OK') {
+        self.style.backgroundColor = 'black';
+        self.value = 'OK';
+      }
+      else {  // to Main Page
+        self.style.backgroundColor = '#505050';
+        self.value = BtnName;
+      }
+    }
+  </script>
+  <style>
+    body {
+      width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    table, th, td {
+      width: 400px;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th {
+      background-color: #A9A9A9;
+    }
+    td {
+      padding-bottom: 350px;
+    }
+    .MenuBtn {
+      width: 100px;
+      height: 30px;
+      background-color: #505050;
+      color: white;
+      margin: 20px 5px;
+      text-align: center;
+    }
+    .EditBtn{
+      width: 30px;
+      height: 30px;
+      background-color: transparent;
+      padding: 0px;
+      color: black;
+      text-align: center;
+      float: right;
+      margin-right: 5px;
+      border:none;
+    }
+    input {
+      width: 340px;
+      height: 30px;
+      padding-left: 10px;
+      border: none;
+      background-color: transparent;
+      text-align: left;
+    }
+    li {
+      list-style-type: none;
+      width:300px;
+      height: 30px;
+      margin:0;
+      text-align: left;
+      display: inline;
+      float:left;
+    }
+  </style>
+</head>
+<body>
+  <!-- Title -->
+  <h1>To do List</h1>
+  <!-- Table -->
+  <div style="float:right;">
+    <input type="button" class="MenuBtn" value="Edit" onclick="click_Btn(this, 'Edit')">
+    <input type="button" class="MenuBtn" value="Order" onclick="click_Btn(this, 'Order')">
+  </div>
+  <table>
+      <tr>
+        <th>
+          <!-- input form -->
+          <form>
+            <input type="text" id="data" placeholder="Write a to do list">
+            <input type="button" class="EditBtn" value="+"
+              onclick="addData();">
+          </form>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <ul id="list"></ul>
+        </td>
+      </tr>
+  </table>
+
+  </body>
+  </html>
