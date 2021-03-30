@@ -7,6 +7,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
   </script>
   <script>
+    // click Menu Btn
     function click_Btn(self, BtnName){
       if (self.value != 'OK') {
         self.style.backgroundColor = 'black';
@@ -17,6 +18,18 @@
         self.value = BtnName;
       }
     }
+    // delete Data, check to be done
+    $(document).ready(function(){
+        $(document).on("click",".DBtn",function(event){
+          this.parentNode.remove();
+        });
+        $(document).on("click",".data",function(event){
+          if (this.style.color = 'black') {
+            this.style.textDecoration = "line-through";
+            this.style.color = 'grey';
+          }
+        });
+    });
   </script>
   <style>
     body {
@@ -43,7 +56,7 @@
       margin: 20px 5px;
       text-align: center;
     }
-    .EditBtn{
+    .EditBtn, .DBtn{
       width: 30px;
       height: 30px;
       background-color: transparent;
@@ -64,7 +77,7 @@
     }
     li {
       list-style-type: none;
-      width:300px;
+      width:355px;
       height: 30px;
       margin:0;
       text-align: left;
@@ -86,7 +99,7 @@
         <th>
           <!-- input form -->
           <form>
-            <input type="text" id="data" placeholder="Write a to do list">
+            <input type="text" id="written" placeholder="Write a to do list">
             <input type="button" class="EditBtn" value="+"
               onclick="addData();">
           </form>
@@ -98,6 +111,7 @@
         </td>
       </tr>
   </table>
+
 
   </body>
   </html>

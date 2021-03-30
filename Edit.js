@@ -1,27 +1,24 @@
-// var list = document.getElementById('list');
 
-function addData(){ // add a list
-  const data = document.getElementById('data'),
+function addData(){ // add a list using "+" button
+  const data = document.getElementById('written'),
     ul = document.getElementById('list'),
     li = document.createElement('li'),
     btn = document.createElement('button');
-    btn.className = 'EditBtn';
-    btn.value = "-";
+
+    li.className = 'data';
+    btn.className = 'DBtn';
+    btn.innerText = "-";
+    btn.value = 'deleteBtn';
 
   if(data.value!=""){
-    li.innerHTML = data.value;
+    li.innerText = data.value;
+    li.appendChild(btn);
     ul.appendChild(li);
-    ul.appendChild(btn);
     data.value="";
   }
 }
 
-// list.addEventListener(onclick, deleteData());
-
-function deleteData(){
-  const data = document.getElementById('data'),
-    ul = document.getElementById('list');
-
-//  const data = ul.removeChild("");
-//  ul.removeChild(data);
+function deleteData(self){ // delete a list using "-" button
+  var data = self.parentNode;
+  data.remove();
 }
