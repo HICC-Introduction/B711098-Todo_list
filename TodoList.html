@@ -4,31 +4,73 @@
   <title>WEB - CSS</title>
   <meta charset="utf-8">
     <script src="Edit.js"></script>
+    <script src="Order.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
   </script>
   <script>
+    var isEditPage = false;
+    var isOrderPage = false;
+
     // click Menu Btn
     function click_Btn(self, BtnName){
-      if (self.value != 'OK') {
+      const list = document.getElementsByClassName('data');
+      // button switching
+      if (self.value != 'OK' && (isEditPage == false && isOrderPage == false)) {
+        // to Edit/Order Page
+        if (BtnName == 'Order'){
+          Click_OrderPage();
+          isOrderPage = true;
+        }
+        else if (BtnName == 'Edit'){
+          Click_EditPage();
+          isEditPage = true;
+        }
+        // button switching
         self.style.backgroundColor = 'black';
         self.value = 'OK';
       }
-      else {  // to Main Page
+      else {
+        // to Main Page
+        if (BtnName == 'Order'){
+          Exit_OrderPage();
+          isOrderPage = false;
+        }
+        else if (BtnName == 'Edit'){
+          Exit_EditPage();
+          $('.DeleteBtn').detach();
+          isEditPage = false;
+        }
+        // button switching
         self.style.backgroundColor = '#505050';
         self.value = BtnName;
       }
     }
-    // delete Data, check to be done
+    // Edit/Order Data
     $(document).ready(function(){
-        $(document).on("click",".DBtn",function(event){
-          this.parentNode.remove();
-        });
-        $(document).on("click",".data",function(event){
+      // Delete Data
+      $(document).on("click",".DeleteBtn",function(event){
+        $(event.target).parent().detach();
+      });
+      $(document).on("click",".data",function(event){
+      // Check to be done
+        if (isEditPage == false && isOrderPage == false){
           if (this.style.color = 'black') {
             this.style.textDecoration = "line-through";
             this.style.color = 'grey';
           }
-        });
+          else if (this.style.color = 'grey'){
+            this.style.color = 'black';
+          }
+        }
+      // Modify data
+       if (isEditPage == true && isOrderPage == false)
+        modifyData(this);
+      });
+      // Modify Order Data
+      $(document).on("click",".UpBtn",function(event){
+      });
+      $(document).on("click",".DownBtn",function(event){
+      });
     });
   </script>
   <style>
@@ -56,11 +98,34 @@
       margin: 20px 5px;
       text-align: center;
     }
-    .EditBtn, .DBtn{
+    #AddBtn, .DeleteBtn{
       width: 30px;
       height: 30px;
       background-color: transparent;
       padding: 0px;
+      color: black;
+      text-align: center;
+      float: right;
+      margin-right: 5px;
+      border:none;
+    }
+    .UpBtn, .DownBtn{
+        width: 30px;
+        height: 30px;
+        background-color: transparent;
+        padding: 0px;
+        color: black;
+        text-align: center;
+        float: right;
+        margin-right: 5px;
+        border:none;
+      }
+    }
+    .DownBtn {
+      width: 30px;
+      height: 30px;
+      background-color: transparent;
+      border-left: 30px;
       color: black;
       text-align: center;
       float: right;
@@ -77,7 +142,7 @@
     }
     li {
       list-style-type: none;
-      width:355px;
+      width: 355px;
       height: 30px;
       margin:0;
       text-align: left;
@@ -98,10 +163,10 @@
       <tr>
         <th>
           <!-- input form -->
-          <form>
-            <input type="text" id="written" placeholder="Write a to do list">
-            <input type="button" class="EditBtn" value="+"
-              onclick="addData();">
+          <div style="height:32px">
+          <form id="form">
+            <input type="text" id="written" disabled="true" >
+            <input type="button" id="AddBtn" value="+" disabled="true" onclick="addData();">
           </form>
         </th>
       </tr>
