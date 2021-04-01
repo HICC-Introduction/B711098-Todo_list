@@ -10,6 +10,7 @@
   <script>
     var isEditPage = false;
     var isOrderPage = false;
+    var listAry = new Array();
 
     // click Menu Btn
     function click_Btn(self, BtnName){
@@ -24,6 +25,7 @@
         else if (BtnName == 'Edit'){
           Click_EditPage();
           isEditPage = true;
+          $('#AddBtn').show();
         }
         // button switching
         self.style.backgroundColor = 'black';
@@ -39,6 +41,7 @@
           Exit_EditPage();
           $('.DeleteBtn').detach();
           isEditPage = false;
+          $('#AddBtn').hide();
         }
         // button switching
         self.style.backgroundColor = '#505050';
@@ -54,22 +57,34 @@
       $(document).on("click",".data",function(event){
       // Check to be done
         if (isEditPage == false && isOrderPage == false){
-          if (this.style.color = 'black') {
+          if (this.style.textDecoration != "line-through") {
             this.style.textDecoration = "line-through";
             this.style.color = 'grey';
           }
-          else if (this.style.color = 'grey'){
+          else {
+            this.style.textDecoration = "initial";
             this.style.color = 'black';
           }
         }
       // Modify data
-       if (isEditPage == true && isOrderPage == false)
-        modifyData(this);
+        if (isEditPage == true && isOrderPage == false){
+          var tmp = $(event.target);
+          if(tmp.text() != "-"){
+            var modifyData = prompt("Edit : ");
+            $(event.target).html(modifyData + '<button class="DeleteBtn" value="deleteBtn">-</button>');
+          }
+        }
       });
       // Modify Order Data
       $(document).on("click",".UpBtn",function(event){
+        var data = $(event.currentTarget).parent();
+        var prev = data.prev();
+        data.insertBefore(prev);
       });
       $(document).on("click",".DownBtn",function(event){
+        var data = $(event.currentTarget).parent();
+        var next = data.next();
+        data.insertAfter(next);
       });
     });
   </script>
@@ -166,13 +181,15 @@
           <div style="height:32px">
           <form id="form">
             <input type="text" id="written" disabled="true" >
-            <input type="button" id="AddBtn" value="+" disabled="true" onclick="addData();">
+            <input type="button" id="AddBtn" value="+" disabled="true"
+            style="display:none;" onclick="addData();">
           </form>
         </th>
       </tr>
       <tr>
         <td>
-          <ul id="list"></ul>
+          <ul id="list">
+          </ul>
         </td>
       </tr>
   </table>
