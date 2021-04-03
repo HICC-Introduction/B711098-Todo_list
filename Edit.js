@@ -19,7 +19,6 @@ function createBtn(){
     btn.value = 'deleteBtn';
     return btn;
 }
-
 // to Edit page
 function Click_EditPage(){
   const addBtn = document.getElementById('AddBtn'),
